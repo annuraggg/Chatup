@@ -5,6 +5,7 @@ import { authenticateToken } from "./tokenHandler.js";
 import { validatePhone } from "./validators.js";
 import { chatDB, userDB } from "./database.js";
 import fs from "fs";
+import { mongoSockets } from "./socketHandler.js";
 
 router.post(
   "/",
@@ -79,10 +80,14 @@ router.post("/add", authenticateToken, async (req, res) => {
       const data = {
         participants: [id, oid],
         messages: [],
-        unseen: []
+        unseen: [],
       };
 
       await chatDB.insertOne(data);
+      const socket = mongoSockets[oid];
+      console.log("SOCKET IS")
+      console.log(socket);
+      socket.emit("new_chat", { chatId: data._id.toString() });
       res.status(200).json({ status: "success" });
     } else {
       res.status(400).json({ message: "No User Found" });

@@ -5,6 +5,8 @@ import express from "express";
 import { ObjectId } from "mongodb";
 export const router = express.Router();
 
+export const mongoSockets = {};
+
 export default async function initializeSocket() {
   io.on("connection", async (socket) => {
     const token = socket.handshake.auth.jwtToken;
@@ -13,6 +15,9 @@ export default async function initializeSocket() {
         console.log(err);
       } else {
         socket.mongoID = decoded.id;
+        console.log("SACKET")
+        console.log(socket.mongoID)
+        mongoSockets[socket.mongoID] = socket;
       }
 
       socket.on("joinRoom", (rooms) => {
@@ -73,5 +78,9 @@ export default async function initializeSocket() {
         console.log(error);
       }
     });
+  });
+
+  io.on("disconnect", () => {
+    delete socketsByCustomField[socket.customField];
   });
 }

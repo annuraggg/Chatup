@@ -7,25 +7,29 @@ import "./assets/css/App.css";
 import Chat from "./components/chat/Chat";
 import socket from "./socket.js";
 
-console.log(import.meta.env.VITE_MAIN_SERVER)
+console.log(import.meta.env.VITE_MAIN_SERVER);
 const App = () => {
   const [sidebar, setSidebar] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedChat, setSelectedChat] = useState(null);
   const [user, setUser] = useState(null);
+  const [fetchD, useFetchD] = useState(false);
 
   useEffect(() => {
     const jwtToken = Cookies.get("jwt");
 
     const fetchData = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_MAIN_SERVER}/chat/get`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${jwtToken}`,
-          },
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_MAIN_SERVER}/chat/get`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              authorization: `Bearer ${jwtToken}`,
+            },
+          }
+        );
 
         if (res.status !== 200) {
           window.location.href = `${import.meta.env.VITE_MAIN_SERVER}/signup`;
@@ -111,10 +115,10 @@ const App = () => {
             const timestampB = new Date(latestMessageB.timestamp).getTime();
 
             if (isNaN(timestampA) || isNaN(timestampB)) {
-              return 0; 
+              return 0;
             }
 
-            return timestampB - timestampA; 
+            return timestampB - timestampA;
           });
 
           setSidebar(newSidebar);
@@ -124,16 +128,23 @@ const App = () => {
           });
         } else {
           console.log("Error");
-          alert("Error. You can report this to me at bugs@anuragsawant.tech")
+          alert("Error. You can report this to me at bugs@anuragsawant.tech");
         }
       } catch (error) {
         console.log("Error fetching data:", error);
-        alert("You can report this to me at bugs@anuragsawant.tech with a screenshot of the console log")
+        alert(
+          "You can report this to me at bugs@anuragsawant.tech with a screenshot of the console log"
+        );
       }
     };
 
+    useFetchD(false);
     fetchData();
-  }, []);
+  }, [fetchD]);
+
+  socket.on("new_chat", (data) => {
+    useFetchD(true);
+  });
 
   const handleSelectChat = (chatId) => {
     const selectedChat = sidebar.find((chat) => chat.chat_id === chatId);
