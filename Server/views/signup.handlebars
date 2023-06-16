@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="css/signup.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.css">
+</head>
+
+<body>
+    <div id="main" class="div1">
+        <div id="form1">
+            <h2>Enter Your Phone Number to Continue</h2>
+            <input type="tel" id="phone">
+            <button onclick="submitPhone()" id="btn1">
+                <p id="p1">NEXT</p>
+                <div class="loader" id="l1"></div>
+            </button>
+            <p id="box1" class="errBox">&nbsp;</p>
+        </div>
+
+        <div id="form2">
+            <h4 id="info">Enter the OTP You Received</h4>
+            <form method="get" class="digit-group" data-group-name="digits" data-autosubmit="false" autocomplete="off">
+                <input type="text" id="digit-1" name="digit-1" data-next="digit-2" />
+                <input type="text" id="digit-2" name="digit-2" data-next="digit-3" data-previous="digit-1" />
+                <input type="text" id="digit-3" name="digit-3" data-next="digit-4" data-previous="digit-2" />
+                <span class="splitter">&ndash;</span>
+                <input type="text" id="digit-4" name="digit-4" data-next="digit-5" data-previous="digit-3" />
+                <input type="text" id="digit-5" name="digit-5" data-next="digit-6" data-previous="digit-4" />
+                <input type="text" id="digit-6" name="digit-6" data-previous="digit-5" />
+            </form>
+            <button onclick="submitOTP()" id="btn2">
+                <p id="p2">NEXT</p>
+                <div class="loader" id="l2"></div>
+            </button>
+            <p id="box2" class="errBox">&nbsp;</p>
+        </div>
+
+        <div id="form3">
+            <h2>Enter Your Name</h2>
+            <input type="text" id="name" placeholder="Name">
+            <button onclick="submitDetails()" id="btn3">
+                <p id="p3">NEXT</p>
+                <div class="loader" id="l3"></div>
+            </button>
+            <p id="box3" class="errBox">&nbsp;</p>
+        </div>
+    </div>
+
+</body>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
+<script src="js/signup.js"></script>
+
+</html>
