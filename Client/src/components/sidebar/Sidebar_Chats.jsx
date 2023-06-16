@@ -4,6 +4,10 @@ const Sidebar_Chats = ({ sidebar, onSelectChat }) => {
   const getChat = (id, index) => {
     const dot = document.getElementById(`dot-${index}`);
     dot.className = "no-dot";
+    const sidebar = document.querySelector(".sidebar");
+    sidebar.classList.remove("active");
+    const chat = document.querySelector(".chat");
+    chat.classList.remove("notactive");
     onSelectChat(id);
   };
 

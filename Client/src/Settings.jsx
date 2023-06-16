@@ -80,6 +80,7 @@ const Settings = ({ settings, closeSettings, user }) => {
   };
 
   const getCroppedImage = async () => {
+    console.log("CALLED")
     const croppedCanvas = cropper.getCroppedCanvas();
     const croppedImageDataURL = croppedCanvas.toDataURL();
     const res = await fetch(`${import.meta.env.VITE_MAIN_SERVER}/updateProfile/image`, {

@@ -10,49 +10,69 @@ var iti = window.intlTelInput(input, {
     "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.0/build/js/utils.js",
 });
 
-var otp;
-$(".digit-group")
-  .find("input")
-  .each(function () {
-    $(this).attr("maxlength", 1);
-    $(this).on("keyup", function (e) {
-      var parent = $($(this).parent());
+var otp = "";
 
-      if (e.keyCode === 8 || e.keyCode === 37) {
-        var prev = parent.find("input#" + $(this).data("previous"));
+$(".digit-group").find("input").each(function () {
+  $(this).attr("maxlength", 1);
 
-        if (prev.length) {
-          $(prev).select();
-        }
-      } else if (
-        (e.keyCode >= 48 && e.keyCode <= 57) ||
-        (e.keyCode >= 65 && e.keyCode <= 90) ||
-        (e.keyCode >= 96 && e.keyCode <= 105) ||
-        e.keyCode === 39
-      ) {
-        var next = parent.find("input#" + $(this).data("next"));
+  $(this).on("input", function (e) {
+    var parent = $($(this).parent());
+    var inputValue = $(this).val();
 
-        if (next.length) {
-          $(next).select();
-        } else {
-          if (parent.data("autosubmit")) {
-            parent.submit();
-          }
+    // Remove any non-numeric characters
+    inputValue = inputValue.replace(/\D/g, '');
+    $(this).val(inputValue);
+
+    if (inputValue) {
+      var next = parent.find("input#" + $(this).data("next"));
+
+      if (next.length) {
+        $(next).focus();
+      } else {
+        if (parent.data("autosubmit")) {
+          parent.submit();
         }
       }
-    });
-
-    $(this).on("input", function () {
-      otp =
-        $("#digit-1").val() +
-        $("#digit-2").val() +
-        $("#digit-3").val() +
-        $("#digit-4").val() +
-        $("#digit-5").val() +
-        $("#digit-6").val();
-      $("#otp").val(otp);
-    });
+    }
   });
+
+  $(this).on("keydown", function (e) {
+    var parent = $($(this).parent());
+    var currentId = $(this).attr("id");
+
+    if ($(this).val().length >= 1 && e.keyCode !== 8) {
+      e.preventDefault(); // Prevent further input if already one character entered
+    }
+
+    if (e.keyCode === 8) { // Backspace key
+      var prev = parent.find("input#" + $(this).data("previous"));
+
+      if (prev.length) {
+        $(this).val("");
+        $(prev).focus();
+      }
+    }
+  });
+
+  $(this).on("blur", function () {
+    var inputValue = $(this).val();
+
+    if (inputValue.length > 1) {
+      $(this).val(inputValue.slice(0, 1)); // Trim to the first character
+    }
+
+    otp = $(".digit-group")
+      .find("input")
+      .map(function () {
+        return $(this).val();
+      })
+      .get()
+      .join("");
+
+    $("#otp").val(otp);
+  });
+});
+
 
 function setJwtCookie(name, value, days) {
   const expirationDate = new Date();

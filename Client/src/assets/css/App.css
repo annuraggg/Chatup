@@ -73,6 +73,7 @@ svg text {
   flex-direction: row;
   height: 100vh;
   transition: 0.2s;
+  position: relative;
 }
 
 .sidebar {
@@ -82,12 +83,14 @@ svg text {
   min-width: 400px;
   background: var(--bg-main);
   height: 99.9vh;
+  max-width: 100vw;
 }
 
 .sidebar > .header {
   padding: 50px 30px;
   padding-bottom: 0px;
   height: 15vh;
+  max-width: 100vw;
 }
 
 .sidebar > .header > .search {
@@ -981,4 +984,100 @@ svg text {
 
 .dot-hide {
   background-color: transparent;
+}
+
+.chat_header > i {
+  display: none;
+  margin-right: 25px;
+}
+
+#ham {
+  display: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .main {
+    overflow: hidden;
+  }
+
+  .sidebar {
+    display: none;
+    padding: 0;
+    margin: 0;
+    max-width: 100vw;
+  }
+
+  .sidebar > .chats {
+    margin: 0;
+    padding: 0;
+    max-width: 100vw;
+    overflow-x: hidden;
+    margin-right: 15px;
+  }
+
+  .sidebar > .header {
+    margin-right: 15px;
+  }
+
+  .main > .chat {
+    min-width: 100vw;
+    margin: 0;
+    padding: 0;
+    padding-left: 0;
+  }
+
+  .chat_footer {
+    margin: 0;
+  }
+
+  .chat_header > i {
+    display: block;
+  }
+
+  .active {
+    position: absolute;
+    display: block;
+    z-index: 1;
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+  }
+
+  .notactive {
+    display: none;
+  }
+
+  .no_chat {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    z-index: 0;
+  }
+
+  #ham {
+    display: block;
+    position: absolute;
+    left: 25px;
+    top: 25px;
+    z-index: 0;
+  }
+
+  .newChat {
+    padding-top: 30px;
+    height: 35vh;
+  }
+
+  .newChat > #first > .inputs {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .second {
+    height: 60vh;
+  } 
+
+  .secondDivVis img {
+    margin-top: -200px;
+  }
 }

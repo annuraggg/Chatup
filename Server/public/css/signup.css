@@ -233,3 +233,34 @@ body {
   font-size: 16px;
   outline: none;
 }
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+@media only screen and (max-width: 600px) {
+  #main, #form1, #form2, #form3 {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #form1 > h2 {
+    margin-left: 25px;
+  }
+
+  .digit-group input {
+    height: 30px;
+    width: 30px;
+  }
+}

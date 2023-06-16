@@ -11,11 +11,16 @@ const Chat_Header = ({ selectedChat }) => {
     });
   }
 
+  const showSidebar = () => {
+    const sidebar = document.querySelector(".sidebar");
+    sidebar.classList.add("active");
+    const chat = document.querySelector(".chat");
+    chat.classList.add("notactive");
+  }
+
   return (
     <div className="chat_header">
-      <div className="image">
-        <img srcSet="" alt="" />
-      </div>
+      <i className="fa-solid fa-bars" onClick={showSidebar}></i>
       <div className="name">{name}</div>
     </div>
   );
