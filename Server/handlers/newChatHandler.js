@@ -79,6 +79,7 @@ router.post("/add", authenticateToken, async (req, res) => {
       const data = {
         participants: [id, oid],
         messages: [],
+        unread: []
       };
 
       await chatDB.insertOne(data);
