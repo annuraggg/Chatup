@@ -13,7 +13,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedChat, setSelectedChat] = useState(null);
   const [user, setUser] = useState(null);
-  const [fetchD, useFetchD] = useState(false);
+  const [fetchD, useFetchD] = useState(0);
 
   useEffect(() => {
     const jwtToken = Cookies.get("jwt");
@@ -138,12 +138,11 @@ const App = () => {
       }
     };
 
-    useFetchD(false);
     fetchData();
   }, [fetchD]);
 
   socket.on("new_chat", (data) => {
-    useFetchD(true);
+    useFetchD((prev) => prev + 1);
   });
 
   const handleSelectChat = (chatId) => {
