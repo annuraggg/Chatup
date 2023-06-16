@@ -15,8 +15,8 @@ export default async function initializeSocket() {
         console.log(err);
       } else {
         socket.mongoID = decoded.id;
-        console.log("SACKET")
-        console.log(socket.mongoID)
+        console.log("SACKET");
+        console.log(socket.mongoID);
         mongoSockets[socket.mongoID] = socket;
       }
 
@@ -53,8 +53,10 @@ export default async function initializeSocket() {
           await chatDB.updateOne(
             { _id: new ObjectId(chatId) },
             {
-              $push: { messages: message_id.toString() },
-              $push: { unseen: receiver },
+              $push: {
+                messages: message_id.toString(),
+                unseen: receiver,
+              },
             }
           );
         } else {
