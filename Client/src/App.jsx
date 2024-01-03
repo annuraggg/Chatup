@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import Sidebar from "./components/Sidebar/Sidebar";
+import Sidebar from "./components/sidebar/Sidebar";
 import "./assets/css/normalize.css";
 import "./assets/fa/css/all.css";
 import "./assets/css/App.css";
